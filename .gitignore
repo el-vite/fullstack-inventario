@@ -1,0 +1,22 @@
+# Ignorar carpetas de compilación de .NET
+**/bin/
+**/obj/
+
+# Ignorar archivos de configuración de usuario de Visual Studio
+*.user
+*.suo
+*.sln.docstates
+
+# Ignorar dependencias de Node.js (MUY IMPORTANTE)
+**/node_modules/
+
+# Ignorar archivos de log y temporales de Angular/npm
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+/dist/
+/.angular/
+
+# Ignorar archivos del sistema operativo
+.DS_Store
+Thumbs.db
