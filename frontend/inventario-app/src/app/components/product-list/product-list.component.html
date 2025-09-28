@@ -1,0 +1,45 @@
+<div class="container">
+  <h2>Lista de Productos</h2>
+
+  <form [formGroup]="filterForm" (ngSubmit)="onFilter()" class="filter-form">
+    <input formControlName="nombre" placeholder="Filtrar por nombre...">
+    <input formControlName="categoria" placeholder="Filtrar por categoría...">
+    <button class="btn-primary" type="submit">Filtrar</button>
+    <button class="btn-secondary" type="button" (click)="clearFilters()">Limpiar</button>
+  </form>
+
+  <div class="action-bar">
+    <button class="btn-primary" [routerLink]="['/products/new']">Crear Nuevo Producto</button>
+    <button class="btn-secondary" [routerLink]="['/transactions/new']">Registrar Venta/Compra</button>
+  </div>
+
+  <table *ngIf="products.length">
+    <thead>
+      <tr><th>ID</th><th>Nombre</th><th>Precio</th><th>Stock</th><th>Acciones</th></tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of products">
+        <td>{{ product.id }}</td>
+        <td>{{ product.nombre }}</td>
+        <td>{{ product.precio | currency }}</td>
+        <td>{{ product.stock }}</td>
+        <td>
+
+          <button class="btn-secondary" [routerLink]="['/products/edit', product.id]">Editar</button>
+          <button class="btn-danger" (click)="deleteProduct(product.id)">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="!products.length">
+    <p>No hay productos para mostrar con los filtros actuales.</p>
+  </div>
+
+  <div *ngIf="totalProducts > 0" class="pagination-controls">
+    <button class="btn-secondary" (click)="prevPage()" [disabled]="currentPage === 1">Anterior</button>
+    <span>Página {{ currentPage }} de {{ Math.ceil(totalProducts / pageSize) }}</span>
+    <button class="btn-secondary" (click)="nextPage()" [disabled]="(currentPage * pageSize) >= totalProducts">Siguiente</button>
+  </div>
+</div>
+

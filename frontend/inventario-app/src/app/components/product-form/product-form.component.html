@@ -1,0 +1,41 @@
+<div class="container">
+  <h2>{{ isEditMode ? 'Editar Producto' : 'Crear Nuevo Producto' }}</h2>
+
+  <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="nombre">Nombre:</label>
+      <input id="nombre" formControlName="nombre">
+      <div *ngIf="productForm.get('nombre')?.invalid && productForm.get('nombre')?.touched">
+        <small class="error">El nombre es requerido.</small>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="descripcion">Descripción:</label>
+      <textarea id="descripcion" formControlName="descripcion"></textarea>
+    </div>
+    <div class="form-group">
+      <label for="categoria">Categoría:</label>
+      <input id="categoria" formControlName="categoria">
+    </div>
+    <div class="form-group">
+      <label for="precio">Precio:</label>
+      <input id="precio" type="number" formControlName="precio">
+      <div *ngIf="productForm.get('precio')?.invalid && productForm.get('precio')?.touched">
+        <small class="error">El precio es requerido y debe ser mayor a 0.</small>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="stock">Stock:</label>
+      <input id="stock" type="number" formControlName="stock">
+      <div *ngIf="productForm.get('stock')?.invalid && productForm.get('stock')?.touched">
+        <small class="error">El stock es requerido y no puede ser negativo.</small>
+      </div>
+    </div>
+    <div>
+      <button class="btn-primary" type="submit" [disabled]="productForm.invalid">
+        {{ isEditMode ? 'Actualizar' : 'Crear' }}
+      </button>
+      <button class="btn-secondary" type="button" (click)="router.navigate(['/products'])">Cancelar</button>
+    </div>
+  </form>
+</div>

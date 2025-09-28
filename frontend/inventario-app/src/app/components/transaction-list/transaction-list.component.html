@@ -1,0 +1,39 @@
+<div class="container">
+  <h2>Historial de Transacciones</h2>
+
+  <div class="action-bar">
+      <button class="btn-primary" [routerLink]="['/transactions/new']">Registrar Nueva Transacción</button>
+  </div>
+
+  <table *ngIf="transactions.length">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Fecha</th>
+        <th>Tipo</th>
+        <th>ID Producto</th>
+        <th>Cantidad</th>
+        <th>Precio Total</th>
+        <th>Acciones</th> </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let tx of transactions">
+        <td>{{ tx.id }}</td>
+        <td>{{ tx.fecha | date:'short' }}</td>
+        <td>{{ tx.tipoTransaccion }}</td>
+        <td>{{ tx.productoID }}</td>
+        <td>{{ tx.cantidad }}</td>
+        <td>{{ tx.precioTotal | currency }}</td>
+        <td>
+          <button class="btn-secondary" [routerLink]="['/transactions/edit', tx.id]">Editar</button>
+          <button class="btn-danger" (click)="deleteTransaction(tx.id)">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="!transactions.length">
+    <p>No hay transacciones para mostrar.</p>
+  </div>
+
+</div>

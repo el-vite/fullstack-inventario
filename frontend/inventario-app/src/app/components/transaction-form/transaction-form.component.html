@@ -1,0 +1,30 @@
+<div class="container">
+  <h2>Registrar Transacción</h2>
+  <form [formGroup]="transactionForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="productoID">Producto:</label>
+      <select id="productoID" formControlName="productoID">
+        <option value="" disabled>Selecciona un producto</option>
+        <option *ngFor="let product of products" [value]="product.id">
+          {{ product.nombre }} (Stock: {{ product.stock }})
+        </option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="tipoTransaccion">Tipo:</label>
+      <select formControlName="tipoTransaccion">
+        <option value="Venta">Venta</option>
+        <option value="Compra">Compra</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="cantidad">Cantidad:</label>
+      <input id="cantidad" type="number" formControlName="cantidad">
+    </div>
+    
+    <div>
+      <button class="btn-primary" type="submit" [disabled]="transactionForm.invalid">Registrar</button>
+      <button class="btn-secondary" type="button" (click)="router.navigate(['/products'])">Cancelar</button>
+    </div>
+  </form>
+</div>
