@@ -31,7 +31,7 @@ cd <NOMBRE_DE_LA_CARPETA_DEL_PROYECTO>
 
 1.  Abre tu gestor de base de datos (como SQL Server Management Studio).
 2.  Crea una nueva base de datos llamada **`InventarioDB`**.
-3.  Abre el archivo **`database.sql`** que se encuentra en la raíz del proyecto.
+3.  Abre el archivo **`Script SQL Base de datos`** que se encuentra en la raíz del proyecto.
 4.  Copia y ejecuta el contenido del script en una nueva consulta sobre la base de datos `InventarioDB` para crear las tablas.
 
 ### 3. Configurar las Cadenas de Conexión del Backend
