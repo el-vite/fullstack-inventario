@@ -1,0 +1,56 @@
+-- =================================================================
+-- Script para la Creación de la Base de Datos de Inventario
+-- Base de Datos: InventarioDB
+-- Tablas: Productos, Transacciones
+-- =================================================================
+
+
+-- Creacion gestor de SQL Server.
+/*
+IF NOT EXISTS (SELECT * FROM sys.databases WHERE name = 'InventarioDB')
+BEGIN
+    CREATE DATABASE InventarioDB;
+END
+GO
+
+USE InventarioDB;
+GO
+*/
+
+-- -----------------------------------------------------
+-- Tabla: Productos
+-- Almacena la información de cada artículo en el inventario.
+-- -----------------------------------------------------
+CREATE TABLE Productos (
+    ID INT PRIMARY KEY IDENTITY(1,1),
+    Nombre NVARCHAR(100) NOT NULL,
+    Descripcion NVARCHAR(500) NULL,
+    Categoria NVARCHAR(50) NULL,
+    Imagen NVARCHAR(MAX) NULL,
+    Precio DECIMAL(18, 2) NOT NULL,
+    Stock INT NOT NULL DEFAULT 0
+);
+GO
+
+-- -----------------------------------------------------
+-- Tabla: Transacciones
+-- -----------------------------------------------------
+CREATE TABLE Transacciones (
+    ID INT PRIMARY KEY IDENTITY(1,1),
+    Fecha DATETIME NOT NULL DEFAULT GETDATE(),
+    TipoTransaccion NVARCHAR(10) NOT NULL,
+    ProductoID INT NOT NULL,
+    Cantidad INT NOT NULL,
+    PrecioUnitario DECIMAL(18, 2) NOT NULL,
+    PrecioTotal DECIMAL(18, 2) NOT NULL,
+    Detalle NVARCHAR(255) NULL,
+
+    -- Define la relación con la tabla Productos (Clave Foránea)
+    CONSTRAINT FK_Transacciones_Productos FOREIGN KEY (ProductoID)
+    REFERENCES Productos(ID),
+
+    -- Restricción para asegurar que el tipo de transacción sea solo 'Compra' o 'Venta'
+
+    CONSTRAINT CHK_TipoTransaccion CHECK (TipoTransaccion IN ('Compra', 'Venta'))
+);
+GO
